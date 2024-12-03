@@ -13,7 +13,7 @@ function App() {
     const token = localStorage.getItem('token');
     if (token) {
       // 서버에 토큰 검증 요청을 보내거나, 직접 사용자 정보를 복구
-      setUser('로그인된 유저 이름'); // 서버로부터 받은 사용자 이름을 설정
+      setUser(''); // 서버로부터 받은 사용자 이름을 설정
     }
   }, []);
 
