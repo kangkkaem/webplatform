@@ -8,11 +8,15 @@ const mallRoutes = require('./routes/mallRoutes');
 const app = express();
 const PORT = 5000;
 
+const cors = require('cors');
+app.use(cors()); // CORS 허용
+
 // MongoDB 연결
 connectDB();
 
 // 미들웨어
 app.use(express.json());
+console.log(req.body); // 요청 본문 확인
 
 
 

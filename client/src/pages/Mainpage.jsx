@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import './MainPage.scss';
 
 const MainPage = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState(localStorage.getItem('user') || null);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setUser(null);
+    alert('로그아웃 되었습니다.');
+  };
 
   const handleStartFree = () => {
     const isLoggedIn = localStorage.getItem('token'); // 로그인 여부 확인
@@ -27,13 +34,21 @@ const MainPage = () => {
           <a href="/help">지원</a>
         </nav>
         <div className="auth-buttons">  
-          <button onClick={() => navigate('/login')}>로그인</button>
-          <button onClick={() => navigate('/register')}>회원가입</button>
+        {user ? (
+                    <div>
+                        <span>{user}님</span>
+                        <button onClick={handleLogout}>로그아웃</button>
+                    </div>
+                ) : (
+                    <button onClick={() => navigate('/login')}>로그인</button>
+                  )}
         </div>
+        <button onClick={() => navigate('/register')}>회원가입</button>
       </header>
       <main>
         <h1>쉽고 빠르게 쇼핑몰 시작하기</h1>
         <button onClick={handleStartFree}>무료로 시작하기</button>
+
       </main>
       <footer>
         <p>© 2024 Godomall. All rights reserved.</p>
