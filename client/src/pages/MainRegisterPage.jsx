@@ -1,54 +1,41 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
-const RegisterPage = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+import { useNavigate } from 'react-router-dom';
 
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+const MainRegisterPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', formData);
-      alert(response.data.message);
-    } catch (error) {
-      console.error(error);
-      alert('Failed to register');
-    }
+      e.preventDefault();
+
+      try {
+          await axios.post('http://localhost:5000/api/auth/register', { email, password });
+          navigate('/login'); // 로그인 페이지로 이동
+      } catch (error) {
+          console.error(error.response.data.message);
+      }
   };
-  
+
   return (
-    <div className="register-page">
-      <h1>회원가입</h1>
       <form onSubmit={handleSubmit}>
-      <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={formData.username}
-          onChange={handleChange}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <button type="submit">Register</button>
+          <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Sign Up</button>
       </form>
-    </div>
   );
 };
 
-export default RegisterPage;
+export default MainRegisterPage;
