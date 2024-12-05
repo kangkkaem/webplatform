@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainPage from './pages/Mainpage';
-import LoginPage from './pages/LoginPage';
-import MainRegisterPage from './pages/MainRegisterPage';
-import AdminRegisterPage from './pages/AdminRegisterPage';
-import Navbar from './components/Navbar'; 
+import HomePage from './pages/HomePage/HomePage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import MainRegisterPage from './pages/RegisterPage/MainRegisterPage';
+import AdminRegisterPage from './pages/RegisterPage/AdminRegisterPage';
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -20,11 +20,11 @@ function App() {
   return (
     <div>
         
-      
       <Router>
-        <Navbar user={user} setUser={setUser} />
+        
         <Routes>
-          <Route path="/" element={<MainPage />} />
+         
+          <Route path="/" element={<HomePage user={user} setUser={setUser} />} />
           <Route path="/login" element={<LoginPage setUser={setUser} />} />
         </Routes>
         <Routes>
